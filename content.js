@@ -1,5 +1,6 @@
 (() => {
   const BADGE_CLASS = 'lpri-epstein-badge';
+  const BADGE_MENTION_CLASS = 'lpri-epstein-badge-mentioned';
   const TOOLTIP_CLASS = 'lpri-epstein-tooltip';
   const MARK_ATTR = 'data-lpri-marked';
   const MAX_TEXT_LENGTH = 120;
@@ -29,7 +30,9 @@
         name: String(record.name),
         category: record.category ? String(record.category) : 'Epstein files',
         sources: Array.isArray(record.sources) ? record.sources.filter((s) => typeof s === 'string' && s.trim()) : [],
-        notes: typeof record.notes === 'string' ? record.notes : ''
+        notes: typeof record.notes === 'string' ? record.notes : '',
+        badgeText: typeof record.badgeText === 'string' ? record.badgeText : 'epstein files',
+        badgeType: record.badgeType === 'mentioned' ? 'mentioned' : 'files'
       };
 
       if (!map.has(key)) map.set(key, []);
@@ -120,6 +123,10 @@
         letter-spacing: 0.02em;
         font-weight: 700;
         font-family: sans-serif !important;
+      }
+
+      .${BADGE_CLASS}.${BADGE_MENTION_CLASS} {
+        background-color: #5b1a1a;
       }
 
       .${BADGE_CLASS}:link,
@@ -250,7 +257,21 @@
         if (!key || !index.has(key)) continue;
 
         used.push({ start, end });
-        out.push({ candidate, key, matches: index.get(key), start, end });
+        const recordsForKey = index.get(key);
+        const badges = [];
+
+        let hasFiles = false;
+        let hasMentioned = false;
+        for (let r = 0; r < recordsForKey.length; r += 1) {
+          const rec = recordsForKey[r] || {};
+          if (rec.badgeType === 'mentioned') hasMentioned = true;
+          else hasFiles = true;
+        }
+
+        if (hasFiles) badges.push({ type: 'files', text: 'epstein files' });
+        if (hasMentioned) badges.push({ type: 'mentioned', text: 'epstein mentioned' });
+
+        out.push({ candidate, key, matches: recordsForKey, start, end, badges });
         break;
       }
     }
@@ -293,16 +314,23 @@
       nameSpan.textContent = match.candidate;
       frag.appendChild(nameSpan);
 
-      const badge = document.createElement('a');
-      badge.className = BADGE_CLASS;
-      badge.textContent = 'epstein files';
-      badge.href = buildDojSearchUrl(match.candidate);
-      badge.target = '_blank';
-      badge.rel = 'noreferrer noopener';
-      badge.title = 'Open DOJ Epstein files search for this name';
-      badge.addEventListener('mouseenter', () => showTooltip(badge, match.matches));
-      badge.addEventListener('mouseleave', hideTooltip);
-      frag.appendChild(badge);
+      const badges = Array.isArray(match.badges) && match.badges.length > 0
+        ? match.badges
+        : [{ type: 'files', text: 'epstein files' }];
+
+      for (let b = 0; b < badges.length; b += 1) {
+        const badgeInfo = badges[b];
+        const badge = document.createElement('a');
+        badge.className = BADGE_CLASS + (badgeInfo.type === 'mentioned' ? ' ' + BADGE_MENTION_CLASS : '');
+        badge.textContent = badgeInfo.text;
+        badge.href = buildDojSearchUrl(match.candidate);
+        badge.target = '_blank';
+        badge.rel = 'noreferrer noopener';
+        badge.title = 'Open DOJ Epstein files search for this name';
+        badge.addEventListener('mouseenter', () => showTooltip(badge, match.matches));
+        badge.addEventListener('mouseleave', hideTooltip);
+        frag.appendChild(badge);
+      }
 
       cursor = match.end;
     }
