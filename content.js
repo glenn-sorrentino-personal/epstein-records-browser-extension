@@ -1,4 +1,3 @@
-if (typeof globalThis.maybeAutofillDojEpsteinSearch !== "function") globalThis.maybeAutofillDojEpsteinSearch = function () {};
 (() => {
   const BADGE_CLASS = 'lpri-epstein-badge';
   const TOOLTIP_CLASS = 'lpri-epstein-tooltip';
@@ -99,10 +98,6 @@ if (typeof globalThis.maybeAutofillDojEpsteinSearch !== "function") globalThis.m
     if (nearButton && typeof nearButton.click === 'function') nearButton.click();
   }
 
-  function maybeAutofillDojEpsteinSearch() {
-    // Compatibility no-op for stale cached callers.
-  }
-
   function ensureStyles() {
     if (document.getElementById('lpri-style')) return;
     const style = document.createElement('style');
@@ -154,36 +149,9 @@ if (typeof globalThis.maybeAutofillDojEpsteinSearch !== "function") globalThis.m
     document.head.appendChild(style);
   }
 
-  function buildTooltipContent(matches) {
+  function buildTooltipContent() {
     const root = document.createElement('div');
-    root.innerHTML = `<div><strong>Public records available</strong></div><div style="margin-top:4px;opacity:0.9;">Name-only match in dataset. Verify identity manually.</div>`;
-
-    for (const match of matches.slice(0, 3)) {
-      const section = document.createElement('div');
-      section.style.marginTop = '6px';
-      section.textContent = match.category || 'Epstein files';
-      root.appendChild(section);
-
-      if (!match.sources || match.sources.length === 0) {
-        const noSource = document.createElement('div');
-        noSource.style.opacity = '0.85';
-        noSource.textContent = 'No source URL provided in local dataset.';
-        root.appendChild(noSource);
-        continue;
-      }
-
-      for (const src of match.sources.slice(0, 3)) {
-        const linkWrap = document.createElement('div');
-        const a = document.createElement('a');
-        a.href = src;
-        a.target = '_blank';
-        a.rel = 'noreferrer noopener';
-        a.textContent = src;
-        linkWrap.appendChild(a);
-        root.appendChild(linkWrap);
-      }
-    }
-
+    root.textContent = 'Public records available. Name match only.';
     return root;
   }
 
@@ -193,7 +161,7 @@ if (typeof globalThis.maybeAutofillDojEpsteinSearch !== "function") globalThis.m
     hideTooltip();
     const tip = document.createElement('div');
     tip.className = TOOLTIP_CLASS;
-    tip.appendChild(buildTooltipContent(matches));
+    tip.appendChild(buildTooltipContent());
     document.body.appendChild(tip);
 
     const r = anchor.getBoundingClientRect();
