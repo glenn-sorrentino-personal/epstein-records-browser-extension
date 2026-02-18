@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Public Records Indicator v2",
+  "version": "0.1.8",
+  "description": "Shows a neutral indicator next to names on any webpage when there is a matching entry in a vetted Epstein-files public-records dataset.",
+  "permissions": ["storage"],
+  "host_permissions": ["<all_urls>"],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["data/records.js", "data/txt-loader.js", "content.v2.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["data/names.txt"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "action": {
+    "default_title": "Public Records Indicator",
+    "default_popup": "popup.html"
+  }
+}
