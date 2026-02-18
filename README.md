@@ -2,7 +2,7 @@
 
 ## What this does
 - Adds a badge next to names on webpages when there is an exact normalized-name match labeled "Epstein Files".
-- Shows a tooltip with neutral language and links to the DOJ search page for that name.
+- Links to the DOJ search page for that name.
 
 ## Data sources
 The extension can load records from two local files:
