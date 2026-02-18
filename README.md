@@ -1,8 +1,8 @@
-# Public Records Indicator (Epstein-files dataset)
+# Epstein Records Indicator
 
 ## What this does
-- Adds a neutral `*` badge next to names on webpages when there is an exact normalized-name match.
-- Shows a tooltip with neutral language and any available source links.
+- Adds a badge next to names on webpages when there is an exact normalized-name match labeled "Epstein Files".
+- Shows a tooltip with neutral language and links to the DOJ search page for that name.
 
 ## Data sources
 The extension can load records from two local files:
