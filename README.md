@@ -1,20 +1,23 @@
 # Epstein Records Indicator
 
 ## What this does
-- Adds a badge next to names on webpages when there is an exact normalized-name match labeled "Epstein Files".
+- Adds a badge next to names on webpages when there is an exact normalized-name match.
+- Uses two badge variants:
+  - `epstein files` (default)
+  - `epstein mentioned` (maroon)
 - Links to the DOJ search page for that name.
 
 <img width="1624" height="1061" alt="Screenshot 2026-02-18 at 2 07 00 PM" src="https://github.com/user-attachments/assets/4cd08627-d9ce-420c-8316-cab98c034b28" />
 
-
 ## Data sources
-The extension can load records from two local files:
+The extension loads records from local files:
 1. `data/records.js` (structured records with names + sources)
-2. `data/names.txt` (one name per line)
+2. `data/names.txt` (one name per line, badge: `epstein files`)
+3. `data/mentions.txt` (one name per line, badge: `epstein mentioned`)
 
-`names.txt` is merged into in-memory records at runtime.
+`names.txt` and `mentions.txt` are merged into in-memory records at runtime.
 
-## names.txt format
+## TXT format
 - One name per line
 - Empty lines ignored
 - Lines starting with `#` are comments
@@ -22,7 +25,7 @@ The extension can load records from two local files:
 Example:
 
 ```txt
-# Epstein dataset names
+# Dataset names
 First Last
 Another Person
 ```
@@ -31,7 +34,7 @@ Another Person
 1. Open `chrome://extensions`
 2. Enable **Developer mode**
 3. Click **Load unpacked**
-4. Select this folder: `epstein-web`
+4. Select this folder: `epstein-records-indicator`
 5. Click refresh after edits
 
 ## Notes
