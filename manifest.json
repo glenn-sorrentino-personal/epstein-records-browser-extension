@@ -1,5 +1,5 @@
 {
-  "manifest_version": 1,
+  "manifest_version": 3,
   "name": "Epstein Records Indicator",
   "version": "0.0.1",
   "description": "Shows a badge next to names on any webpage when there is a matching entry in a vetted Epstein-files public-records dataset.",
