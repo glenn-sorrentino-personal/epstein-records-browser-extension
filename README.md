@@ -4,6 +4,9 @@
 - Adds a badge next to names on webpages when there is an exact normalized-name match labeled "Epstein Files".
 - Links to the DOJ search page for that name.
 
+<img width="1624" height="1061" alt="Screenshot 2026-02-18 at 2 07 00 PM" src="https://github.com/user-attachments/assets/4cd08627-d9ce-420c-8316-cab98c034b28" />
+
+
 ## Data sources
 The extension can load records from two local files:
 1. `data/records.js` (structured records with names + sources)
