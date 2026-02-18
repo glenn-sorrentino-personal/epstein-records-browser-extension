@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Epstein Records Indicator",
   "version": "0.0.1",
-  "description": "Shows a badge next to names on any webpage when there is a matching entry in a vetted Epstein-files public-records dataset.",
+  "description": "Shows a neutral indicator next to names on any webpage when there is a matching entry in a vetted Epstein-files public-records dataset.",
   "permissions": ["storage"],
   "host_permissions": ["<all_urls>"],
   "content_scripts": [
@@ -14,7 +14,7 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": ["data/names.txt"],
+      "resources": ["data/names.txt", "data/mentions.txt"],
       "matches": ["<all_urls>"]
     }
   ],
