@@ -107,13 +107,14 @@
         display: inline-block;
         margin-left: 4px;
         padding: 2px 4px;
-        font-size: inherit;
+        font-size: 11px;
         line-height: 1.2;
-        color: white;
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
         background-color: rgba(185, 28, 28, 1);
         border-radius: 4px;
         cursor: pointer;
-        text-decoration: none;
+        text-decoration: none !important;
         vertical-align: super;
         text-transform: lowercase;
         letter-spacing: 0.02em;
@@ -121,13 +122,17 @@
         font-family: sans-serif !important;
       }
 
+      .${BADGE_CLASS}:link,
       .${BADGE_CLASS}:visited,
-      .${BADGE_CLASS}:active,
       .${BADGE_CLASS}:hover,
+      .${BADGE_CLASS}:active,
+      .${BADGE_CLASS}:focus,
+      .${BADGE_CLASS}:focus-visible,
       .${BADGE_CLASS}:hover:visited {
-        color: white;
+        color: #ffffff !important;
+        -webkit-text-fill-color: #ffffff !important;
+        text-decoration: none !important;
       }
-
       .${TOOLTIP_CLASS} {
         position: absolute;
         z-index: 999999;
@@ -195,12 +200,63 @@
     return words.every((w) => /^[A-Z][A-Za-z'-.]*$/.test(w));
   }
 
-  function extractCandidateName(text) {
+  function findAllMatchedRecordsInText(text) {
     const raw = String(text || '').replace(/\s+/g, ' ').trim();
-    if (!looksLikeName(raw)) return '';
-    return raw;
-  }
+    if (!raw) return [];
 
+    const out = [];
+    const used = [];
+
+    function overlaps(start, end) {
+      for (let i = 0; i < used.length; i += 1) {
+        const u = used[i];
+        if (start < u.end && end > u.start) return true;
+      }
+      return false;
+    }
+
+    const tokenPattern = /[A-Z][A-Za-z'-.]*/g;
+    const tokens = [];
+    let tm;
+    while ((tm = tokenPattern.exec(raw)) !== null) {
+      const word = String(tm[0] || '');
+      if (!word) continue;
+      tokens.push({ word, start: tm.index, end: tm.index + word.length });
+    }
+
+    function isContiguousWordRun(i, j) {
+      for (let k = i; k < j; k += 1) {
+        const gap = raw.slice(tokens[k].end, tokens[k + 1].start);
+        if (!/^\s+$/.test(gap)) return false;
+      }
+      return true;
+    }
+
+    const maxWindow = 5;
+    for (let i = 0; i < tokens.length; i += 1) {
+      for (let size = maxWindow; size >= 1; size -= 1) {
+        const j = i + size - 1;
+        if (j >= tokens.length) continue;
+        if (!isContiguousWordRun(i, j)) continue;
+
+        const start = tokens[i].start;
+        const end = tokens[j].end;
+        if (overlaps(start, end)) continue;
+
+        const candidate = raw.slice(start, end).trim();
+        if (!candidate) continue;
+
+        const key = normalizeName(candidate);
+        if (!key || !index.has(key)) continue;
+
+        used.push({ start, end });
+        out.push({ candidate, key, matches: index.get(key), start, end });
+        break;
+      }
+    }
+
+    return out.sort((a, b) => a.start - b.start);
+  }
   function isEligibleElement(el) {
     if (!el || el.nodeType !== Node.ELEMENT_NODE) return false;
     const tag = el.tagName;
@@ -208,48 +264,55 @@
     if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'NOSCRIPT') return false;
     if (tag === 'TEXTAREA' || tag === 'INPUT' || tag === 'SELECT') return false;
     if (el.isContentEditable) return false;
-    if (el.closest && el.closest('script,style,noscript,textarea,input,select,[contenteditable="true"]')) return false;
+    if (el.closest && el.closest('script,style,noscript,textarea,input,select,[contenteditable="true"], .' + BADGE_CLASS + ', [data-lpri-name-key]')) return false;
     return true;
   }
 
-  function processNameNode(el, candidateText) {
-    if (!el || hasBadge(el)) return;
-    if (el.getAttribute && el.getAttribute(MARK_ATTR) === '1') return;
+  function processNameNode(textNode) {
+    if (!textNode || !textNode.parentElement) return;
+    const el = textNode.parentElement;
+    if (!isEligibleElement(el)) return;
 
-    const candidate = extractCandidateName(candidateText || el.textContent);
-    if (!candidate) return;
+    const text = String(textNode.nodeValue || '');
+    if (!text.trim()) return;
 
-    const key = normalizeName(candidate);
-    if (!key) return;
-
-    const matches = index.get(key);
+    const matches = findAllMatchedRecordsInText(text);
     if (!matches || matches.length === 0) return;
 
-    const badge = document.createElement('a');
-    badge.className = BADGE_CLASS;
-    badge.textContent = 'epstein files';
-    badge.href = buildDojSearchUrl(candidate);
-    badge.target = '_blank';
-    badge.rel = 'noreferrer noopener';
-    badge.title = 'Open DOJ Epstein files search for this name';
+    const frag = document.createDocumentFragment();
+    let cursor = 0;
 
-    try {
-      const cs = window.getComputedStyle(el);
-      if (cs && cs.fontSize) {
-        const px = parseFloat(cs.fontSize);
-        if (!Number.isNaN(px) && px > 0) badge.style.fontSize = String(Math.max(10, Math.round(px * 0.55))) + 'px';
+    for (let i = 0; i < matches.length; i += 1) {
+      const match = matches[i];
+      if (match.start > cursor) {
+        frag.appendChild(document.createTextNode(text.slice(cursor, match.start)));
       }
-    } catch (err) {
-      // Keep default badge sizing if computed style lookup fails.
+
+      const nameSpan = document.createElement('span');
+      nameSpan.setAttribute('data-lpri-name-key', match.key);
+      nameSpan.textContent = match.candidate;
+      frag.appendChild(nameSpan);
+
+      const badge = document.createElement('a');
+      badge.className = BADGE_CLASS;
+      badge.textContent = 'epstein files';
+      badge.href = buildDojSearchUrl(match.candidate);
+      badge.target = '_blank';
+      badge.rel = 'noreferrer noopener';
+      badge.title = 'Open DOJ Epstein files search for this name';
+      badge.addEventListener('mouseenter', () => showTooltip(badge, match.matches));
+      badge.addEventListener('mouseleave', hideTooltip);
+      frag.appendChild(badge);
+
+      cursor = match.end;
     }
 
-    badge.addEventListener('mouseenter', () => showTooltip(badge, matches));
-    badge.addEventListener('mouseleave', hideTooltip);
+    if (cursor < text.length) {
+      frag.appendChild(document.createTextNode(text.slice(cursor)));
+    }
 
-    el.insertAdjacentElement('afterend', badge);
-    if (el.setAttribute) el.setAttribute(MARK_ATTR, '1');
+    textNode.parentNode.replaceChild(frag, textNode);
   }
-
   function scanTextNodes(root) {
     if (!root) return;
     const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
@@ -259,19 +322,20 @@
 
         const value = String(node.nodeValue || '').replace(/\s+/g, ' ').trim();
         if (!value) return NodeFilter.FILTER_REJECT;
-        if (!looksLikeName(value)) return NodeFilter.FILTER_REJECT;
+        if (findAllMatchedRecordsInText(value).length === 0) return NodeFilter.FILTER_REJECT;
         return NodeFilter.FILTER_ACCEPT;
       }
     });
 
+    const nodes = [];
     let textNode = walker.nextNode();
     while (textNode) {
-      const parent = textNode.parentElement;
-      if (parent) processNameNode(parent, textNode.nodeValue);
+      nodes.push(textNode);
       textNode = walker.nextNode();
     }
-  }
 
+    for (let i = 0; i < nodes.length; i += 1) processNameNode(nodes[i]);
+  }
   function scan() {
     scanTextNodes(document.body || document.documentElement);
   }
