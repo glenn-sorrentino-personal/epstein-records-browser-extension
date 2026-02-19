@@ -1,0 +1,181 @@
+# One name per line.
+# Lines starting with # are comments.
+# Example:
+# First Last
+# References:
+# https://www.wsj.com/us-news/law/what-we-know-so-far-about-the-latest-release-of-epstein-files-260dafba
+# https://en.wikipedia.org/wiki/List_of_people_named_in_the_Epstein_files
+# https://www.nytimes.com/interactive/2026/02/17/us/epstein-files-names-fired-resigned-fallout.html
+
+# Full Names
+Alan Dershowitz
+Al Seckel
+Amanda Thirsk
+Ana Botella
+Anil Ambani
+Andrew Farkas
+Andrew Mountbatten Windsor
+Andrew Mountbatten-Windsor
+Annabelle Neilson
+Ariane de Rothschild
+Ashley Massaro
+Bill Clinton
+Bill Cosby
+Bill Gates
+Bobby Kotick
+Boris Nikolic
+Børge Brende
+Brad Karp
+Brett Kavanaugh
+Brett Ratner
+Brian Vickers
+Caroline Lang
+Casey Wasserman
+Christopher Poole
+Corina Tarnita
+Dalai Lama
+Dan Ariely
+David A. Ross
+David Blaine
+David Brooks
+David Copperfield
+David Gelernter
+David Schoen
+David Stern
+David Tang
+Dean Kamen
+Deepak Chopra
+Donald Trump
+Donald Trump Jr.
+Doug Band
+Dr. Letty Moss-Salentijn
+Dr. Thomas Magnani
+Edward Boyden
+Ehud Barak
+Elisa New
+Elon Musk
+Eric Trump
+Eva Andersson-Dubin
+Fidel Castro
+Flavio Briatore
+Frédéric Chaslin
+George Church
+George J. Mitchell
+George Mitchell
+Ghislaine Maxwell
+Glenn Dubin
+Guy Laliberté
+Hans Ulrich Obrist
+Hardeep Singh Puri
+Harvey Weinstein
+Howard Lutnick
+Jack Horner
+Jack Lang
+Jacob Zuma
+James E. Staley
+Jay-Z
+Jean-Luc Brunel
+Jean Pigozzi
+Jean Todt
+Jes Staley
+Jess Ting
+Jeff Koons
+Joe Gibbs
+John Brockman
+John de Jongh Jr.
+John Phelan
+Joi Ito
+Joichi Ito
+Jonathan Haidt
+José María Aznar
+Josh Harris
+Joshua Cooper Ramo
+Joscha Bach
+Karim Wade
+Karyna Shuliak
+Kathryn Ruemmler
+Ken Starr
+Kevin Rudd
+Kevin Spacey
+Kimbal Musk
+Larry Summers
+Lawrence H. Summers
+Lawrence Krauss
+Leon Black
+Leon Botstein
+Les Wexner
+Leslie Wexner
+Letty Moss-Salentijn
+Lisa Randall
+Lynn Benioff
+Lynn Forester de Rothschild
+Marc Benioff
+Marc Rowan
+Maria Drokova
+Mark Landon
+Mark Tramo
+Mark Zuckerberg
+Marvin Minsky
+Mehmet Oz
+Melania Trump
+Mette-Marit, Crown Princess of Norway
+Michael Jackson
+Michael Waltrip
+Michael Wolff
+Mira Nair
+Miroslav Lajčák
+Mohammed bin Salman
+Mona Juul
+Morgan McSweeney
+Naomi Campbell
+Nathan Myhrvold
+Nathan Wolfe
+Nick Candy
+Nicole Junkermann
+Noam Chomsky
+Peggy Siegal
+Penny Pritzker
+Peter Attia
+Peter Mandelson
+Peter Thiel
+Princess Mette-Marit
+Princess Sofia, Duchess of Värmland
+Pusha T
+R. Alexander Acosta
+Reid Hoffman
+Richard Branson
+Richard Dawkins
+Richard Socher
+Robert F. Kennedy Jr.
+Robert Maxwell
+Robert Mugabe
+Robert Trivers
+Ron Conway
+Ronald Lauder
+Sam Harris
+Sarah Ferguson
+Sergei Belyakov
+Sergey Brin
+Sergey Lavrov
+Soon-Yi Previn
+Stacey Plaskett
+Stephen Hawking
+Stephen Kosslyn
+Steve Bannon
+Steve Tisch
+Steven Pinker
+Sultan Ahmed Bin Sulayem
+Sultan Ahmed bin Sulayem
+Tenzin Gyatso
+Terje Rød-Larsen
+Thomas Magnani
+Thomas Pritzker
+Thomas J. Pritzker
+Thorbjorn Jagland
+Thorbjørn Jagland
+Todd Boehly
+Tom Barrack
+Vitaly Churkin
+Vladimir Putin
+William Burns
+Woody Allen
