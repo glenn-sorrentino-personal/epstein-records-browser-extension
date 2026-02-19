@@ -14,4 +14,4 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Verify browser data is synced from source-data
-        run: scripts/sync-data.sh --check
+        run: bash scripts/sync-data.sh --check
