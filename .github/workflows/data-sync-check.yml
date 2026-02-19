@@ -14,4 +14,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Verify browser data is synced from source-data
-        run: bash scripts/sync-data.sh --check
+        run: |
+          bash scripts/sync-data.sh
+          git diff --exit-code -- \
+            chrome/data/records.js chrome/data/names.txt chrome/data/mentions.txt \
+            firefox/data/records.js firefox/data/names.txt firefox/data/mentions.txt \
+            "safari/Epstein Records Indicator Safari/Epstein Records Indicator Safari Extension/Resources/data/records.js" \
+            "safari/Epstein Records Indicator Safari/Epstein Records Indicator Safari Extension/Resources/data/names.txt" \
+            "safari/Epstein Records Indicator Safari/Epstein Records Indicator Safari Extension/Resources/data/mentions.txt"
