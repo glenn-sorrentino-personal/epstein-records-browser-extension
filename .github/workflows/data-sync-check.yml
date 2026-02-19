@@ -1,0 +1,17 @@
+name: Data Sync Check
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  verify-data-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify browser data is synced from source-data
+        run: scripts/sync-data.sh --check
