@@ -16,6 +16,8 @@ DATA_FILES=(
   "records.js"
   "names.txt"
   "mentions.txt"
+  "collaborator.txt"
+  "emeny.txt"
 )
 
 usage() {
