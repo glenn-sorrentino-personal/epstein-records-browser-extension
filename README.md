@@ -1,5 +1,7 @@
 # Epstein Records Indicator Browser Extension
 
+[![Data Sync](https://github.com/glenn-sorrentino-personal/epstein-records-browser-extension/actions/workflows/data-sync.yml/badge.svg)](https://github.com/glenn-sorrentino-personal/epstein-records-browser-extension/actions/workflows/data-sync.yml)
+
 Who's in your network? Which figures are journalists focusing on? Are there predators in your inbox? Use this browser extension to display badges next to names appearing in the Epstein files. The badge links to the Department of Justice search results for that person for easy auditing of public records.
 
 <img width="2536" height="1162" alt="Frame 5" src="https://github.com/user-attachments/assets/88d12fc5-ee21-4bb7-87e0-8ede5df7b532" />
