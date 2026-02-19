@@ -56,7 +56,7 @@ jobs:
         if: steps.drift.outputs.changed == 'true' && github.event_name == 'push'
         uses: peter-evans/create-pull-request@v6
         with:
-          commit_message: "chore(data): sync browser data from source-data"
+          commit-message: "chore(data): sync browser data from source-data"
           title: "chore(data): sync browser data from source-data"
           body: |
             Automated sync of browser data files from canonical `source-data/*`.
