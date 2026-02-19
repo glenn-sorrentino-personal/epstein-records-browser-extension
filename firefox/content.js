@@ -135,10 +135,10 @@
         -webkit-text-fill-color: #333 !important;
       }
       .${BADGE_CLASS}.${BADGE_COLLABORATOR_CLASS} {
-        background-color: #334155;
+        background-color: #800000;
       }
       .${BADGE_CLASS}.${BADGE_EMENY_CLASS} {
-        background-color: #4b5563;
+        background-color: #15803d;
       }
 
       .${BADGE_CLASS}.${BADGE_MENTION_CLASS}:link,
