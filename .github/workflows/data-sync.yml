@@ -26,11 +26,13 @@ jobs:
         id: drift
         run: |
           if git diff --quiet -- \
-            chrome/data/records.js chrome/data/names.txt chrome/data/mentions.txt \
-            firefox/data/records.js firefox/data/names.txt firefox/data/mentions.txt \
+            chrome/data/records.js chrome/data/names.txt chrome/data/mentions.txt chrome/data/collaborator.txt chrome/data/emeny.txt \
+            firefox/data/records.js firefox/data/names.txt firefox/data/mentions.txt firefox/data/collaborator.txt firefox/data/emeny.txt \
             "safari/Epstein Records Indicator Safari/Epstein Records Indicator Safari Extension/Resources/data/records.js" \
             "safari/Epstein Records Indicator Safari/Epstein Records Indicator Safari Extension/Resources/data/names.txt" \
-            "safari/Epstein Records Indicator Safari/Epstein Records Indicator Safari Extension/Resources/data/mentions.txt"; then
+            "safari/Epstein Records Indicator Safari/Epstein Records Indicator Safari Extension/Resources/data/mentions.txt" \
+            "safari/Epstein Records Indicator Safari/Epstein Records Indicator Safari Extension/Resources/data/collaborator.txt" \
+            "safari/Epstein Records Indicator Safari/Epstein Records Indicator Safari Extension/Resources/data/emeny.txt"; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
@@ -45,12 +47,18 @@ jobs:
             chrome/data/records.js
             chrome/data/names.txt
             chrome/data/mentions.txt
+            chrome/data/collaborator.txt
+            chrome/data/emeny.txt
             firefox/data/records.js
             firefox/data/names.txt
             firefox/data/mentions.txt
+            firefox/data/collaborator.txt
+            firefox/data/emeny.txt
             safari/Epstein Records Indicator Safari/Epstein Records Indicator Safari Extension/Resources/data/records.js
             safari/Epstein Records Indicator Safari/Epstein Records Indicator Safari Extension/Resources/data/names.txt
             safari/Epstein Records Indicator Safari/Epstein Records Indicator Safari Extension/Resources/data/mentions.txt
+            safari/Epstein Records Indicator Safari/Epstein Records Indicator Safari Extension/Resources/data/collaborator.txt
+            safari/Epstein Records Indicator Safari/Epstein Records Indicator Safari Extension/Resources/data/emeny.txt
 
       - name: Open PR with sync changes (push to main)
         if: steps.drift.outputs.changed == 'true' && github.event_name == 'push'
