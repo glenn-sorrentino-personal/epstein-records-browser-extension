@@ -1,4 +1,4 @@
-name: Data Sync Check
+name: Data Sync
 
 on:
   pull_request:
@@ -52,8 +52,24 @@ jobs:
             safari/Epstein Records Indicator Safari/Epstein Records Indicator Safari Extension/Resources/data/names.txt
             safari/Epstein Records Indicator Safari/Epstein Records Indicator Safari Extension/Resources/data/mentions.txt
 
+      - name: Auto-commit sync changes (push to main)
+        if: steps.drift.outputs.changed == 'true' && github.event_name == 'push'
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(data): sync browser data from source-data"
+          file_pattern: |
+            chrome/data/records.js
+            chrome/data/names.txt
+            chrome/data/mentions.txt
+            firefox/data/records.js
+            firefox/data/names.txt
+            firefox/data/mentions.txt
+            safari/Epstein Records Indicator Safari/Epstein Records Indicator Safari Extension/Resources/data/records.js
+            safari/Epstein Records Indicator Safari/Epstein Records Indicator Safari Extension/Resources/data/names.txt
+            safari/Epstein Records Indicator Safari/Epstein Records Indicator Safari Extension/Resources/data/mentions.txt
+
       - name: Fail when drift remains
-        if: steps.drift.outputs.changed == 'true' && !(github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository)
+        if: steps.drift.outputs.changed == 'true' && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository
         run: |
           echo "Data files were out of sync and could not be auto-pushed in this context."
           echo "Run: bash scripts/sync-data.sh"
