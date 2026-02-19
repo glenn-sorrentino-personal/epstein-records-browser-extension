@@ -1,0 +1,4 @@
+# One name per line.
+# This file produces a badge labeled: epstein collaborator
+# Example:
+# First Last
