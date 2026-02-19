@@ -4,7 +4,7 @@
 - Adds a badge next to names on webpages when there is an exact normalized-name match.
 - Uses two badge variants:
   - `epstein files` (default)
-  - `epstein mentioned` (maroon)
+  - `epstein mentioned` (grey)
 - Links to the DOJ search page for that name.
 
 <img width="1624" height="1061" alt="Screenshot 2026-02-18 at 2 07 00 PM" src="https://github.com/user-attachments/assets/4cd08627-d9ce-420c-8316-cab98c034b28" />
@@ -31,11 +31,19 @@ Another Person
 ```
 
 ## Setup
-1. Open `chrome://extensions`
-2. Enable **Developer mode**
-3. Click **Load unpacked**
-4. Select this folder: `epstein-records-indicator`
-5. Click refresh after edits
+
+### Chrome
+1. Open `chrome://extensions`.
+2. Enable **Developer mode**.
+3. Click **Load unpacked**.
+4. Select the folder `chrome`.
+5. Click refresh
+
+### Firefox
+1. Open `about:debugging#/runtime/this-firefox`.
+2. Click Load Temporary Add-on....
+3. Select Firefox/manifest.json from the `firefox` folder.
+4. Open a test page and verify badges render.
 
 ## Notes
 - Name-only matching can produce false positives.
