@@ -19,10 +19,10 @@
       badgeType: 'collaborator'
     },
     {
-      path: 'data/emeny.txt',
-      category: 'Epstein emeny',
-      badgeText: 'epstein emeny',
-      badgeType: 'emeny'
+      path: 'data/enemy.txt',
+      category: 'Epstein enemy',
+      badgeText: 'epstein enemy',
+      badgeType: 'enemy'
     }
   ];
 
