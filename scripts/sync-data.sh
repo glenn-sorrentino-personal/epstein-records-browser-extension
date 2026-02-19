@@ -17,7 +17,7 @@ DATA_FILES=(
   "names.txt"
   "mentions.txt"
   "collaborator.txt"
-  "emeny.txt"
+  "enemy.txt"
 )
 
 usage() {
