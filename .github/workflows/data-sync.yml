@@ -63,6 +63,7 @@ jobs:
           body: |
             Automated sync of browser data files from canonical `source-data/*`.
           branch: chore/data-sync-autofix
+          branch-suffix: timestamp
           delete-branch: true
           labels: automated,data-sync
 
