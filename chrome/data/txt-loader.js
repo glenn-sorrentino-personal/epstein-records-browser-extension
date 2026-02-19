@@ -11,6 +11,18 @@
       category: 'Epstein mentioned',
       badgeText: 'epstein mentioned',
       badgeType: 'mentioned'
+    },
+    {
+      path: 'data/collaborator.txt',
+      category: 'Epstein collaborator',
+      badgeText: 'epstein collaborator',
+      badgeType: 'collaborator'
+    },
+    {
+      path: 'data/emeny.txt',
+      category: 'Epstein emeny',
+      badgeText: 'epstein emeny',
+      badgeType: 'emeny'
     }
   ];
 
@@ -87,7 +99,7 @@
 
     window.dispatchEvent(new CustomEvent('lpri-records-updated', {
       detail: {
-        source: 'names+mentions',
+        source: 'txt-datasets',
         added: loaded.length,
         total: window.LINKED_PUBLIC_RECORDS.length
       }
