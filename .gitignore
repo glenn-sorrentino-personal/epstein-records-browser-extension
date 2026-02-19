@@ -1,0 +1,22 @@
+# macOS
+.DS_Store
+
+# Xcode user-specific state
+**/xcuserdata/
+**/*.xcuserstate
+
+# Xcode build artifacts
+DerivedData/
+build/
+*.xcarchive
+*.dSYM
+
+# Signing/provisioning secrets
+*.p12
+*.pfx
+*.cer
+*.key
+*.mobileprovision
+
+# Local release artifacts
+*.zip
