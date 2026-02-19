@@ -1,4 +1,8 @@
-# Epstein Records Indicator
+# Epstein Records Indicator Browser Extension
+
+Who's in your network? Are there predators in your inbox? Are you researching Epstein's reach in any capacity? Use this browser extension to display badges next to names appearing in the Epstein files. The badge links to the Department of Justice search results for that person for easy auditing of public records.
+
+<img width="2400" height="1038" alt="Frame 4" src="https://github.com/user-attachments/assets/dfcb7d1e-93f4-4846-95af-03efe98406fe" />
 
 ## What this does
 - Adds a badge next to names on webpages when there is an exact normalized-name match.
@@ -6,8 +10,6 @@
   - `epstein files` (default)
   - `epstein mentioned` (grey)
 - Links to the DOJ search page for that name.
-
-<img width="1624" height="1061" alt="Screenshot 2026-02-18 at 2 07 00 PM" src="https://github.com/user-attachments/assets/4cd08627-d9ce-420c-8316-cab98c034b28" />
 
 ## Data sources
 The extension loads records from local files:
