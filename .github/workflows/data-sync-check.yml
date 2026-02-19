@@ -6,19 +6,55 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
-  verify-data-sync:
+  verify-or-fix-data-sync:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Verify browser data is synced from source-data
+      - name: Sync browser data from source-data
+        run: bash scripts/sync-data.sh
+
+      - name: Detect drift after sync
+        id: drift
         run: |
-          bash scripts/sync-data.sh
-          git diff --exit-code -- \
+          if git diff --quiet -- \
             chrome/data/records.js chrome/data/names.txt chrome/data/mentions.txt \
             firefox/data/records.js firefox/data/names.txt firefox/data/mentions.txt \
             "safari/Epstein Records Indicator Safari/Epstein Records Indicator Safari Extension/Resources/data/records.js" \
             "safari/Epstein Records Indicator Safari/Epstein Records Indicator Safari Extension/Resources/data/names.txt" \
-            "safari/Epstein Records Indicator Safari/Epstein Records Indicator Safari Extension/Resources/data/mentions.txt"
+            "safari/Epstein Records Indicator Safari/Epstein Records Indicator Safari Extension/Resources/data/mentions.txt"; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Auto-commit sync changes (same-repo PRs only)
+        if: steps.drift.outputs.changed == 'true' && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(data): sync browser data from source-data"
+          file_pattern: |
+            chrome/data/records.js
+            chrome/data/names.txt
+            chrome/data/mentions.txt
+            firefox/data/records.js
+            firefox/data/names.txt
+            firefox/data/mentions.txt
+            safari/Epstein Records Indicator Safari/Epstein Records Indicator Safari Extension/Resources/data/records.js
+            safari/Epstein Records Indicator Safari/Epstein Records Indicator Safari Extension/Resources/data/names.txt
+            safari/Epstein Records Indicator Safari/Epstein Records Indicator Safari Extension/Resources/data/mentions.txt
+
+      - name: Fail when drift remains
+        if: steps.drift.outputs.changed == 'true' && !(github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository)
+        run: |
+          echo "Data files were out of sync and could not be auto-pushed in this context."
+          echo "Run: bash scripts/sync-data.sh"
+          exit 1
