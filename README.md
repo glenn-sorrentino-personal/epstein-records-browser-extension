@@ -51,3 +51,10 @@ Another Person
 - Name-only matching can produce false positives.
 - Matching is local; extension does not upload your dataset.
 - Keep labels neutral and verify identity manually.
+
+## Next Steps
+- More granular categories
+  - epstein files
+  - epstein mentioned
+  - epstein collaborator
+  - epstein emeny  
