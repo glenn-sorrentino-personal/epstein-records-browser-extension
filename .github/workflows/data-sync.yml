@@ -52,12 +52,18 @@ jobs:
             safari/Epstein Records Indicator Safari/Epstein Records Indicator Safari Extension/Resources/data/names.txt
             safari/Epstein Records Indicator Safari/Epstein Records Indicator Safari Extension/Resources/data/mentions.txt
 
-      - name: Auto-commit sync changes (push to main)
+      - name: Open PR with sync changes (push to main)
         if: steps.drift.outputs.changed == 'true' && github.event_name == 'push'
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: peter-evans/create-pull-request@v6
         with:
           commit_message: "chore(data): sync browser data from source-data"
-          file_pattern: |
+          title: "chore(data): sync browser data from source-data"
+          body: |
+            Automated sync of browser data files from canonical `source-data/*`.
+          branch: chore/data-sync-autofix
+          delete-branch: true
+          labels: automated,data-sync
+          add-paths: |
             chrome/data/records.js
             chrome/data/names.txt
             chrome/data/mentions.txt
