@@ -1,7 +1,0 @@
-# One name per line.
-# This file produces a maroon badge labeled: epstein mentioned
-# Example:
-# First Last
-
-Bernie Sanders
-Jon Stewart
