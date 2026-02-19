@@ -25,7 +25,7 @@ We do **not**:
 
 ## Storage
 
-The extension may use Chrome extension storage for local settings and local dataset behavior only.
+The extension may use Firefox or Chrome extension storage for local settings and local dataset behavior only.
 
 ## Third-Party Requests
 
@@ -41,4 +41,4 @@ Because data is processed locally and not sent to developer servers, we do not r
 
 ## Contact
 
-For privacy questions, open an issue or discussion on our GitHub repo at: <https://github.com/glenn-sorrentino-personal/epstein-records-indicator>
+For privacy questions, open an issue or discussion on our GitHub repo at: <https://github.com/glenn-sorrentino-personal/epstein-records-browser-extension>
