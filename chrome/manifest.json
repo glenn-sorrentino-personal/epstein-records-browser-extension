@@ -14,7 +14,7 @@
   ],
   "web_accessible_resources": [
     {
-      "resources": ["data/names.txt", "data/mentions.txt"],
+      "resources": ["data/names.txt", "data/mentions.txt", "data/collaborator.txt", "data/emeny.txt"],
       "matches": ["<all_urls>"]
     }
   ],
