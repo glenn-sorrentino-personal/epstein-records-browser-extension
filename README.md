@@ -19,6 +19,53 @@ The extension loads records from local files:
 
 `names.txt` and `mentions.txt` are merged into in-memory records at runtime.
 
+## Single source of truth
+Edit dataset files in one place only:
+1. `source-data/records.js`
+2. `source-data/names.txt`
+3. `source-data/mentions.txt`
+
+Then sync browser folders:
+
+```bash
+bash scripts/sync-data.sh
+```
+
+Check sync status:
+
+```bash
+bash scripts/sync-data.sh --check
+```
+
+`scripts/sync-data.sh` updates:
+- `chrome/data/*`
+- `firefox/data/*`
+- `safari/Epstein Records Indicator Safari/Epstein Records Indicator Safari Extension/Resources/data/*`
+
+GitHub Actions workflow:
+- `.github/workflows/data-sync.yml` (`Data Sync`)
+- On PRs and pushes to `main`, it syncs and auto-commits mirrored data changes when possible.
+
+### Single-source workflow
+Use `source-data/` as the only place you edit dataset files:
+1. `source-data/records.js`
+2. `source-data/names.txt`
+3. `source-data/mentions.txt`
+
+Then sync to all browser folders:
+
+```bash
+scripts/sync-data.sh
+```
+
+Verify everything is in sync:
+
+```bash
+scripts/sync-data.sh --check
+```
+
+A GitHub Actions workflow (`.github/workflows/data-sync.yml`) runs this check on pushes/PRs.
+
 ## TXT format
 - One name per line
 - Empty lines ignored
@@ -57,4 +104,4 @@ Another Person
   - epstein files
   - epstein mentioned
   - epstein collaborator
-  - epstein emeny  
+  - epstein enemy
