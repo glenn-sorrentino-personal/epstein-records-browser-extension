@@ -56,6 +56,8 @@ jobs:
         if: steps.drift.outputs.changed == 'true' && github.event_name == 'push'
         uses: peter-evans/create-pull-request@v6
         with:
+          token: ${{ secrets.DATA_SYNC_TOKEN != '' && secrets.DATA_SYNC_TOKEN || github.token }}
+          git-token: ${{ secrets.DATA_SYNC_TOKEN != '' && secrets.DATA_SYNC_TOKEN || github.token }}
           commit-message: "chore(data): sync browser data from source-data"
           title: "chore(data): sync browser data from source-data"
           body: |
