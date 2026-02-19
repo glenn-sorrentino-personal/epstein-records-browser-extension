@@ -1,6 +1,8 @@
 (() => {
   const BADGE_CLASS = 'lpri-epstein-badge';
   const BADGE_MENTION_CLASS = 'lpri-epstein-badge-mentioned';
+  const BADGE_COLLABORATOR_CLASS = 'lpri-epstein-badge-collaborator';
+  const BADGE_EMENY_CLASS = 'lpri-epstein-badge-emeny';
   const TOOLTIP_CLASS = 'lpri-epstein-tooltip';
   const MARK_ATTR = 'data-lpri-marked';
   const MAX_TEXT_LENGTH = 120;
@@ -26,13 +28,15 @@
       const key = normalizeName(record.name);
       if (!key) continue;
 
+      const rawBadgeType = String(record.badgeType || '').toLowerCase().trim();
+      const safeBadgeType = /^[a-z0-9-]+$/.test(rawBadgeType) ? rawBadgeType : '';
       const normalizedRecord = {
         name: String(record.name),
         category: record.category ? String(record.category) : 'Epstein files',
         sources: Array.isArray(record.sources) ? record.sources.filter((s) => typeof s === 'string' && s.trim()) : [],
         notes: typeof record.notes === 'string' ? record.notes : '',
         badgeText: typeof record.badgeText === 'string' ? record.badgeText : 'epstein files',
-        badgeType: record.badgeType === 'mentioned' ? 'mentioned' : 'files'
+        badgeType: safeBadgeType || 'files'
       };
 
       if (!map.has(key)) map.set(key, []);
@@ -129,6 +133,12 @@
         background-color: #ccc;
         color: #333 !important;
         -webkit-text-fill-color: #333 !important;
+      }
+      .${BADGE_CLASS}.${BADGE_COLLABORATOR_CLASS} {
+        background-color: #334155;
+      }
+      .${BADGE_CLASS}.${BADGE_EMENY_CLASS} {
+        background-color: #4b5563;
       }
 
       .${BADGE_CLASS}.${BADGE_MENTION_CLASS}:link,
@@ -271,18 +281,23 @@
 
         used.push({ start, end });
         const recordsForKey = index.get(key);
-        const badges = [];
-
-        let hasFiles = false;
-        let hasMentioned = false;
+        const badgeByType = new Map();
         for (let r = 0; r < recordsForKey.length; r += 1) {
           const rec = recordsForKey[r] || {};
-          if (rec.badgeType === 'mentioned') hasMentioned = true;
-          else hasFiles = true;
+          const type = String(rec.badgeType || 'files').toLowerCase().trim() || 'files';
+          const text = typeof rec.badgeText === 'string' && rec.badgeText.trim() ? rec.badgeText.trim() : ('epstein ' + type);
+          if (!badgeByType.has(type)) badgeByType.set(type, text);
         }
 
-        if (hasFiles) badges.push({ type: 'files', text: 'epstein files' });
-        if (hasMentioned) badges.push({ type: 'mentioned', text: 'epstein mentioned' });
+        const badges = [];
+        const order = ['files', 'mentioned', 'collaborator', 'emeny'];
+        for (let o = 0; o < order.length; o += 1) {
+          const type = order[o];
+          if (!badgeByType.has(type)) continue;
+          badges.push({ type, text: badgeByType.get(type) });
+          badgeByType.delete(type);
+        }
+        badgeByType.forEach((text, type) => badges.push({ type, text }));
 
         out.push({ candidate, key, matches: recordsForKey, start, end, badges });
         break;
@@ -334,7 +349,11 @@
       for (let b = 0; b < badges.length; b += 1) {
         const badgeInfo = badges[b];
         const badge = document.createElement('a');
-        badge.className = BADGE_CLASS + (badgeInfo.type === 'mentioned' ? ' ' + BADGE_MENTION_CLASS : '');
+        let extraClass = '';
+        if (badgeInfo.type === 'mentioned') extraClass = BADGE_MENTION_CLASS;
+        else if (badgeInfo.type === 'collaborator') extraClass = BADGE_COLLABORATOR_CLASS;
+        else if (badgeInfo.type === 'emeny') extraClass = BADGE_EMENY_CLASS;
+        badge.className = BADGE_CLASS + (extraClass ? ' ' + extraClass : '');
         badge.textContent = badgeInfo.text;
         badge.href = buildDojSearchUrl(match.candidate);
         badge.target = '_blank';
