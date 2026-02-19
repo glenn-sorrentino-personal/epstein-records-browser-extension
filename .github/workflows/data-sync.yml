@@ -63,16 +63,6 @@ jobs:
           branch: chore/data-sync-autofix
           delete-branch: true
           labels: automated,data-sync
-          add-paths: |
-            chrome/data/records.js
-            chrome/data/names.txt
-            chrome/data/mentions.txt
-            firefox/data/records.js
-            firefox/data/names.txt
-            firefox/data/mentions.txt
-            safari/Epstein Records Indicator Safari/Epstein Records Indicator Safari Extension/Resources/data/records.js
-            safari/Epstein Records Indicator Safari/Epstein Records Indicator Safari Extension/Resources/data/names.txt
-            safari/Epstein Records Indicator Safari/Epstein Records Indicator Safari Extension/Resources/data/mentions.txt
 
       - name: Fail when drift remains
         if: steps.drift.outputs.changed == 'true' && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.repository
