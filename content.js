@@ -126,7 +126,20 @@
       }
 
       .${BADGE_CLASS}.${BADGE_MENTION_CLASS} {
-        background-color: #5b1a1a;
+        background-color: #ccc;
+        color: #333 !important;
+        -webkit-text-fill-color: #333 !important;
+      }
+
+      .${BADGE_CLASS}.${BADGE_MENTION_CLASS}:link,
+      .${BADGE_CLASS}.${BADGE_MENTION_CLASS}:visited,
+      .${BADGE_CLASS}.${BADGE_MENTION_CLASS}:hover,
+      .${BADGE_CLASS}.${BADGE_MENTION_CLASS}:active,
+      .${BADGE_CLASS}.${BADGE_MENTION_CLASS}:focus,
+      .${BADGE_CLASS}.${BADGE_MENTION_CLASS}:focus-visible,
+      .${BADGE_CLASS}.${BADGE_MENTION_CLASS}:hover:visited {
+        color: #333 !important;
+        -webkit-text-fill-color: #333 !important;
       }
 
       .${BADGE_CLASS}:link,
