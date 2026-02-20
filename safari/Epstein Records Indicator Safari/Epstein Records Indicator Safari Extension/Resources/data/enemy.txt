@@ -2,8 +2,10 @@
 # This file produces a badge labeled: epstein enemy
 # Example:
 # First Last
+# Add whistleblowers, victims, attorneys, or anyone else who opposes Epstein.
+# Include references next to the name.
 
-Alicia Arden
+Alicia Arden # https://...
 Annie Farmer
 Bradley J. Edwards
 Courtney Wild
