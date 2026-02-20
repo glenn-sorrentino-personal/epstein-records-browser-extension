@@ -255,8 +255,9 @@
     }
 
     function isContiguousWordRun(i, j) {
-      // Allow common lowercase particles inside names (e.g., "John de Jongh Jr.")
-      const particleGapPattern = /^\s+(?:(?:d[aeiou]'?)|de|da|del|della|di|du|la|le|van|von|der|den|bin|al)\s+$/i;
+      // Allow common lowercase particles and comma-separated titles inside names
+      // (e.g., "John de Jongh Jr.", "Princess Sofia, Duchess of Värmland").
+      const particleGapPattern = /^[,\s]+(?:(?:d[aeiou]'?)|de|da|del|della|di|du|la|le|van|von|der|den|bin|al|of)[,\s]+$/i;
       for (let k = i; k < j; k += 1) {
         const gap = raw.slice(tokens[k].end, tokens[k + 1].start);
         if (/^\s+$/.test(gap)) continue;
