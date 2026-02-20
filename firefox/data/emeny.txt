@@ -1,5 +1,5 @@
 # One name per line.
-# This file produces a badge labeled: epstein emeny
+# This file produces a badge labeled: epstein enemy
 # Example:
 # First Last
 

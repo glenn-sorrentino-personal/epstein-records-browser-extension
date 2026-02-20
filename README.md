@@ -16,7 +16,7 @@ public records.
   - `epstein files` (default)
   - `epstein mentioned` (grey)
   - `epstein collaborator`
-  - `epstein emeny`
+  - `epstein enemy`
 - Links to the DOJ search page for that name.
 
 ## Data sources
@@ -25,7 +25,7 @@ The extension loads records from local files:
 2. `data/names.txt` (one name per line, badge: `epstein files`)
 3. `data/mentions.txt` (one name per line, badge: `epstein mentioned`)
 4. `data/collaborator.txt` (one name per line, badge: `epstein collaborator`)
-5. `data/emeny.txt` (one name per line, badge: `epstein emeny`)
+5. `data/enemy.txt` (one name per line, badge: `epstein enemy`)
 
 TXT files are merged into in-memory records at runtime.
 
@@ -35,7 +35,7 @@ Edit dataset files in one place only:
 2. `source-data/names.txt`
 3. `source-data/mentions.txt`
 4. `source-data/collaborator.txt`
-5. `source-data/emeny.txt`
+5. `source-data/enemy.txt`
 
 Then sync browser folders:
 
