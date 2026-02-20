@@ -202,3 +202,89 @@ Vitaly Churkin
 Vladimir Putin
 William Burns
 Woody Allen
+
+# Added from: source-data/documents/C. Contact Book_Redacted_0.pdf
+# Conservative OCR extraction (high-confidence person-name entries)
+Arthur Armstrong
+Cathy Armstrong
+Maite Arango
+Victor Arellano
+Charlie Althorp
+Tamara Beckwith
+Tara Bernard
+Ben Bram
+Peter Brandt
+Hamish Bullough
+Holly Peterson
+Gerard Inzerillo
+Ira Gumberg
+Jenny Swire
+Peter Dubin
+Peter Hsu
+Robert Hissom
+Terence Faulkner
+Tim Noonan
+Tracy Younger
+John Zeller
+
+# Added from: source-data/documents/C. Contact Book_Redacted_0.pdf
+# OCR extraction (clean pass: comma-structured contacts)
+Alex Dolbey
+Alexia Wallaert
+Ambassa Falrweather
+Anabel Estrada Elwes
+Annada Fakhre
+Barnaby Thompsoh
+Barry Josephson
+Bea Tollman
+Bettina Zilkha
+Bill Archer
+Carolina Mattsson
+Catherine Prevost
+Charlie Ellngworth
+Charlle Rose
+Charlotte Faibalrn
+Chris Pymont
+Christopher Figg
+Chuck Fifer
+Coslma Pavoncelli
+Danny Fakhre
+David Doss
+Dino Zevi
+Drake Darrin
+Edmund Glentworth
+Edu TeodoraniFabbri
+Electra Prestln
+Emmy Tayler
+Felicia Taylor
+Gloria Jarecki
+Governor Turnbull
+Graham Clempson
+Guy Menson
+Hannah Rothchild
+Harry Tennenbaum
+Helena Felix
+Hillary Bastone
+Howard Finklestein
+Jallla Hashem
+Jerry Lefcourt
+Jo Robinson
+Joanna Abousleiman
+Kalliope Karella
+Leo-Arthur Kehnenson
+Marie Claire Agnew
+Martin Flennes
+Ms Annabel Heseltlne
+Ms Fahweather
+Nick Sarah Allan
+Noona Smith.Peterson
+Ozzie Warner
+Paul Travis
+Phillp Dunne
+Rufus Albermarle
+Ruth Or Westhelmer
+Simi Oates
+Steven Natasha Benson
+Tania Rotherwick
+Waksal Sam Von Habsburg
+Waleed Zawauri

@@ -23,6 +23,12 @@
       category: 'Epstein enemy',
       badgeText: 'epstein enemy',
       badgeType: 'enemy'
+    },
+    {
+      path: 'data/black-book.txt',
+      category: 'Epstein black book',
+      badgeText: 'epstein black book',
+      badgeType: 'black-book'
     }
   ];
 

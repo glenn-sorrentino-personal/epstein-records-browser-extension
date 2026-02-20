@@ -3,6 +3,7 @@
   const BADGE_MENTION_CLASS = 'lpri-epstein-badge-mentioned';
   const BADGE_COLLABORATOR_CLASS = 'lpri-epstein-badge-collaborator';
   const BADGE_ENEMY_CLASS = 'lpri-epstein-badge-enemy';
+  const BADGE_BLACK_BOOK_CLASS = 'lpri-epstein-badge-black-book';
   const TOOLTIP_CLASS = 'lpri-epstein-tooltip';
   const MARK_ATTR = 'data-lpri-marked';
   const MAX_TEXT_LENGTH = 120;
@@ -139,6 +140,9 @@
       }
       .${BADGE_CLASS}.${BADGE_ENEMY_CLASS} {
         background-color: #15803d;
+      }
+      .${BADGE_CLASS}.${BADGE_BLACK_BOOK_CLASS} {
+        background-color: #0f172a;
       }
 
       .${BADGE_CLASS}.${BADGE_MENTION_CLASS}:link,
@@ -295,7 +299,7 @@
         }
 
         const badges = [];
-        const order = ['files', 'mentioned', 'collaborator', 'enemy'];
+        const order = ['files', 'mentioned', 'collaborator', 'enemy', 'black-book'];
         for (let o = 0; o < order.length; o += 1) {
           const type = order[o];
           if (!badgeByType.has(type)) continue;
@@ -358,6 +362,7 @@
         if (badgeInfo.type === 'mentioned') extraClass = BADGE_MENTION_CLASS;
         else if (badgeInfo.type === 'collaborator') extraClass = BADGE_COLLABORATOR_CLASS;
         else if (badgeInfo.type === 'enemy') extraClass = BADGE_ENEMY_CLASS;
+        else if (badgeInfo.type === 'black-book') extraClass = BADGE_BLACK_BOOK_CLASS;
         badge.className = BADGE_CLASS + (extraClass ? ' ' + extraClass : '');
         badge.textContent = badgeInfo.text;
         badge.href = buildDojSearchUrl(match.candidate);

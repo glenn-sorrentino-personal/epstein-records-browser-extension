@@ -18,6 +18,17 @@ public records.
   - `epstein enemy`
 - Links to the DOJ search page for that name.
 
+## Local-first privacy
+- All matching happens locally in your browser.
+- The extension does not upload your page text, browsing history, or local dataset.
+- The extension does not send collected data to any developer server.
+- Data only leaves your browser if you explicitly click a badge link (which opens the DOJ website).
+
+## Open source
+- This project is open source.
+- Source code, datasets, and workflows are publicly auditable on GitHub:
+  `https://github.com/glenn-sorrentino-personal/epstein-records-browser-extension`
+
 ## Data sources
 The extension loads records from local files:
 1. `data/records.js` (structured records with names + sources)

@@ -18,6 +18,7 @@ DATA_FILES=(
   "mentions.txt"
   "collaborator.txt"
   "enemy.txt"
+  "black-book.txt"
 )
 
 usage() {
