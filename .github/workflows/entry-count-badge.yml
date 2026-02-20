@@ -1,0 +1,53 @@
+name: Source Data Entry Count Badge
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "source-data/*.txt"
+      - ".github/workflows/entry-count-badge.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  update-badge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Calculate unique entry count
+        id: count
+        shell: bash
+        run: |
+          count=$(awk '{
+            gsub(/\r/, "")
+            sub(/^[[:space:]]+/, "")
+            sub(/[[:space:]]+$/, "")
+            if ($0 == "" || $0 ~ /^#/) next
+            print tolower($0)
+          }' source-data/*.txt | sort -u | wc -l | tr -d ' ')
+
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+
+      - name: Write badge JSON
+        shell: bash
+        run: |
+          mkdir -p badges
+          cat > badges/source-data-unique.json <<EOF
+          {
+            "schemaVersion": 1,
+            "label": "source-data unique",
+            "message": "${{ steps.count.outputs.count }}",
+            "color": "2ea44f"
+          }
+          EOF
+
+      - name: Auto-commit badge update
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore(meta): update source-data unique entry badge"
+          file_pattern: "badges/source-data-unique.json"
