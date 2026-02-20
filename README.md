@@ -1,8 +1,7 @@
 # Epstein Records Indicator Browser Extension
 
-[![Source-data unique entries](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/glenn-sorrentino-personal/epstein-records-browser-extension/main/badges/source-data-unique.json)](badges/source-data-unique.json)
+[![Unqiue Records](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/glenn-sorrentino-personal/epstein-records-browser-extension/main/badges/source-data-unique.json)](badges/source-data-unique.json)
 [![Data Sync](https://github.com/glenn-sorrentino-personal/epstein-records-browser-extension/actions/workflows/data-sync.yml/badge.svg)](https://github.com/glenn-sorrentino-personal/epstein-records-browser-extension/actions/workflows/data-sync.yml)
-
 
 Who's in your network? Which figures are journalists focusing on? Are there predators in your
 inbox? Use this browser extension to display badges next to names appearing in the Epstein files.
