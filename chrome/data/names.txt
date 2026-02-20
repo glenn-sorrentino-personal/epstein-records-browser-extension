@@ -10,9 +10,13 @@
 # Full Names
 Alan Dershowitz
 Al Seckel
+Alec Baldwin
 Amanda Thirsk
 Ana Botella
 Anil Ambani
+Andrés Pastrana Arango
+Andres Serrano
+Andrew Cuomo
 Andrew Farkas
 Andrew Mountbatten Windsor
 Andrew Mountbatten-Windsor
@@ -26,6 +30,7 @@ Bobby Kotick
 Boris Nikolic
 Børge Brende
 Brad Karp
+Brad S. Karp 
 Brett Kavanaugh
 Brett Ratner
 Brian Vickers
@@ -40,6 +45,7 @@ David Blaine
 David Brooks
 David Copperfield
 David Gelernter
+David Koch
 David Schoen
 David Stern
 David Tang
@@ -72,6 +78,7 @@ Howard Lutnick
 Jack Horner
 Jack Lang
 Jacob Zuma
+James Watson
 James E. Staley
 Jay-Z
 Jean-Luc Brunel
@@ -85,6 +92,7 @@ Joanna Rubinstein
 Joe Gibbs
 John Brockman
 John de Jongh Jr.
+John Kerry
 John Phelan
 Joi Ito
 Joichi Ito
@@ -111,17 +119,21 @@ Letty Moss-Salentijn
 Lisa Randall
 Lynn Benioff
 Lynn Forester de Rothschild
+Malcolm Gladwell
 Marc Benioff
 Marc Rowan
 Maria Drokova
 Mark Landon
 Mark Tramo
 Mark Zuckerberg
+Martin Nowak
 Marvin Minsky
 Mehmet Oz
 Melania Trump
 Mette-Marit
 Mette-Marit Crown Princess of Norway
+Michael Bloomberg
+Michael Bolton
 Michael Jackson
 Michael Waltrip
 Michael Wolff
@@ -130,12 +142,14 @@ Miroslav Lajčák
 Mohammed bin Salman
 Mona Juul
 Morgan McSweeney
+Nadia Marcinko
 Naomi Campbell
 Nathan Myhrvold
 Nathan Wolfe
 Nick Candy
 Nicole Junkermann
 Noam Chomsky
+Paul Tweed 
 Peggy Siegal
 Penny Pritzker
 Peter Attia
@@ -160,6 +174,8 @@ Sarah Ferguson
 Sergei Belyakov
 Sergey Brin
 Sergey Lavrov
+Shawn Corey Carter
+Shelley Anne Lewis
 Soon-Yi Previn
 Stacey Plaskett
 Stephen Hawking
@@ -179,6 +195,7 @@ Thorbjørn Jagland
 Todd Boehly
 Tom Barrack
 Tom Pritzker
+Tony Blair
 Vitaly Churkin
 Vladimir Putin
 William Burns
