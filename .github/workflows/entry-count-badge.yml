@@ -40,7 +40,7 @@ jobs:
           cat > badges/source-data-unique.json <<EOF
           {
             "schemaVersion": 1,
-            "label": "source-data unique",
+            "label": "Unqiue Records",
             "message": "${{ steps.count.outputs.count }}",
             "color": "2ea44f"
           }
