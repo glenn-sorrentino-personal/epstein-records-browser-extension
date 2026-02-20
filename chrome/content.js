@@ -227,7 +227,7 @@
 
     const words = raw.split(/\s+/).filter(Boolean);
     if (words.length < 2 || words.length > MAX_NAME_WORDS) return false;
-    return words.every((w) => /^[A-Z][A-Za-z'-.]*$/.test(w));
+    return words.every((w) => /^\p{Lu}[\p{L}\p{M}'-.]*$/u.test(w));
   }
 
   function findAllMatchedRecordsInText(text) {
@@ -245,7 +245,7 @@
       return false;
     }
 
-    const tokenPattern = /[A-Z][A-Za-z'-.]*/g;
+    const tokenPattern = /\p{Lu}[\p{L}\p{M}'-.]*/gu;
     const tokens = [];
     let tm;
     while ((tm = tokenPattern.exec(raw)) !== null) {
