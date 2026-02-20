@@ -7,8 +7,7 @@ inbox? Use this browser extension to display badges next to names appearing in t
 The badge links to the Department of Justice search results for that person for easy auditing of
 public records.
 
-<img width="2536" height="1162" alt="Frame 5" src="https://github.com/user-attachments/assets/88d12fc5-ee21-4bb7-87e0-8ede5df7b532" />
-
+<img width="2332" height="1162" alt="Frame 5" src="https://github.com/user-attachments/assets/7ec126b5-7d56-4898-b9ea-b0b2130a6fe7" />
 
 ## What this does
 - Adds a badge next to names on webpages when there is an exact normalized-name match.
