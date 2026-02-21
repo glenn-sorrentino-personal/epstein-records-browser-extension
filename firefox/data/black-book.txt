@@ -1,14 +1,15 @@
 # One name per line.
 # This file produces a badge labeled: epstein black book
 # Source of truth: source-data/documents/black-book.txt
-# Extracted from high-confidence entries and normalized to First Last.
-# Generated from the Internet Archive black book text with manual cleanup and deduplication.
+# Generated from the Internet Archive black book text using ChatGPT.
+# https://archive.org/stream/jeffrey-epsteins-little-black-book-unredacted_202006/Jeffrey%20Epstein%27s%20Little%20Black%20Book%20unredacted_djvu.txt
+# This list may contain errors.
 
 Abby King
 Adam Gardner
 Adam Nagel
 Adam Perry Lang
-Afen de Cadenet
+Alain de Cadenet
 Aiegra Donne
 Aiexi Zaies
 Alaistar Cudro
@@ -745,6 +746,7 @@ Nick Morris
 Nick Pritzker
 Nick Te
 Nicky Caledon
+Nicholas Alexander, 7th Earl of Caledon
 Nicoia Formby
 Nicolas Berggruen
 Nicole Paini

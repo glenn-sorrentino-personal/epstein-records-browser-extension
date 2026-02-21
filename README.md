@@ -104,6 +104,14 @@ Another Person
 3. Select firefox/manifest.json from the firefox folder.
 4. Open a test page and verify badges render.
 
+### Safari
+
+1. Open `safari/Epstein Records Indicator Safari/Epstein Records Indicator Safari.xcodeproj` in Xcode.
+2. Build and run the app target.
+3. In Safari, open Settings -> Extensions.
+4. Enable **Epstein Records Indicator**.
+5. Open a test page and verify badges render.
+
 ## Notes
 
 - Name-only matching can produce false positives.

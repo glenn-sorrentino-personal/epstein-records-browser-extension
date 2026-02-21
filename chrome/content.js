@@ -5,12 +5,111 @@
   const BADGE_ENEMY_CLASS = 'lpri-epstein-badge-enemy';
   const BADGE_BLACK_BOOK_CLASS = 'lpri-epstein-badge-black-book';
   const TOOLTIP_CLASS = 'lpri-epstein-tooltip';
-  const MARK_ATTR = 'data-lpri-marked';
   const MAX_TEXT_LENGTH = 120;
   const MAX_NAME_WORDS = 5;
   const EPSTEIN_SEARCH_BASE = 'https://www.justice.gov/epstein';
+  const BADGE_SETTINGS_STORAGE_KEY = 'lpriBadgeSettings';
+  const DISABLED_NAMES_STORAGE_KEY = 'lpriDisabledNames';
+  const CUSTOM_RECORDS_STORAGE_KEY = 'lpriCustomRecords';
+  const DEFAULT_BADGE_SETTINGS = {
+    files: true,
+    mentioned: true,
+    collaborator: true,
+    enemy: true,
+    'black-book': true
+  };
+  const DEFAULT_CUSTOM_RECORDS = {
+    files: [],
+    mentioned: [],
+    collaborator: [],
+    enemy: [],
+    'black-book': []
+  };
+  const CATEGORY_META_BY_TYPE = {
+    files: { category: 'Epstein files', badgeText: 'epstein files' },
+    mentioned: { category: 'Epstein mentioned', badgeText: 'epstein mentioned' },
+    collaborator: { category: 'Epstein collaborator', badgeText: 'epstein collaborator' },
+    enemy: { category: 'Epstein enemy', badgeText: 'epstein enemy' },
+    'black-book': { category: 'Epstein black book', badgeText: 'epstein black book' }
+  };
+  const EXT = typeof browser !== 'undefined' ? browser : chrome;
 
   let index = new Map();
+  let badgeSettings = Object.assign({}, DEFAULT_BADGE_SETTINGS);
+  let disabledNames = {};
+  let customRecords = Object.assign({}, DEFAULT_CUSTOM_RECORDS);
+
+  function normalizeBadgeSettings(input) {
+    const next = Object.assign({}, DEFAULT_BADGE_SETTINGS);
+    const raw = input && typeof input === 'object' ? input : {};
+    Object.keys(next).forEach((key) => {
+      if (typeof raw[key] === 'boolean') next[key] = raw[key];
+    });
+    return next;
+  }
+
+  function getStorageValue(key) {
+    return new Promise((resolve) => {
+      try {
+        EXT.storage.local.get([key], (result) => {
+          const value = result && typeof result === 'object' ? result[key] : undefined;
+          resolve(value);
+        });
+      } catch (err) {
+        resolve(undefined);
+      }
+    });
+  }
+
+  async function loadBadgeSettings() {
+    const raw = await getStorageValue(BADGE_SETTINGS_STORAGE_KEY);
+    badgeSettings = normalizeBadgeSettings(raw);
+  }
+
+  function normalizeDisabledNames(input) {
+    const out = {};
+    const raw = input && typeof input === 'object' ? input : {};
+    Object.keys(raw).forEach((key) => {
+      const normalized = normalizeName(key);
+      if (!normalized) return;
+      if (raw[key] === true) out[normalized] = true;
+    });
+    return out;
+  }
+
+  async function loadDisabledNames() {
+    const raw = await getStorageValue(DISABLED_NAMES_STORAGE_KEY);
+    disabledNames = normalizeDisabledNames(raw);
+  }
+
+  function normalizeCustomRecords(input) {
+    const out = {};
+    const raw = input && typeof input === 'object' ? input : {};
+    Object.keys(DEFAULT_CUSTOM_RECORDS).forEach((type) => {
+      const source = Array.isArray(raw[type]) ? raw[type] : [];
+      out[type] = source
+        .map((item) => String(item || '').trim())
+        .filter((item) => item.length > 0);
+    });
+    return out;
+  }
+
+  async function loadCustomRecords() {
+    const raw = await getStorageValue(CUSTOM_RECORDS_STORAGE_KEY);
+    customRecords = normalizeCustomRecords(raw);
+  }
+
+  function isNameDisabled(nameKey) {
+    const key = normalizeName(nameKey);
+    return !!disabledNames[key];
+  }
+
+  function isBadgeTypeEnabled(type) {
+    const key = String(type || '').toLowerCase().trim();
+    if (!key) return true;
+    if (Object.prototype.hasOwnProperty.call(badgeSettings, key)) return !!badgeSettings[key];
+    return true;
+  }
 
   function normalizeName(value) {
     return String(value || '')
@@ -28,6 +127,7 @@
       if (!record || typeof record !== 'object' || !record.name) continue;
       const key = normalizeName(record.name);
       if (!key) continue;
+      if (isNameDisabled(key)) continue;
 
       const rawBadgeType = String(record.badgeType || '').toLowerCase().trim();
       const safeBadgeType = /^[a-z0-9-]+$/.test(rawBadgeType) ? rawBadgeType : '';
@@ -46,8 +146,48 @@
     return map;
   }
 
+  function mergeCustomRecords(records) {
+    const merged = Array.isArray(records) ? records.slice() : [];
+    const seen = new Set();
+
+    for (let i = 0; i < merged.length; i += 1) {
+      const rec = merged[i] || {};
+      const key = normalizeName(rec.name);
+      const type = String(rec.badgeType || '').toLowerCase().trim();
+      if (!key || !type) continue;
+      seen.add(key + '|' + type);
+    }
+
+    Object.keys(customRecords).forEach((type) => {
+      const list = Array.isArray(customRecords[type]) ? customRecords[type] : [];
+      const meta = CATEGORY_META_BY_TYPE[type] || {
+        category: 'Epstein files',
+        badgeText: 'epstein files'
+      };
+      for (let i = 0; i < list.length; i += 1) {
+        const name = String(list[i] || '').trim();
+        const key = normalizeName(name);
+        if (!name || !key) continue;
+        const compound = key + '|' + type;
+        if (seen.has(compound)) continue;
+        seen.add(compound);
+        merged.push({
+          name,
+          category: meta.category,
+          badgeText: meta.badgeText,
+          badgeType: type,
+          sources: [],
+          notes: 'Added by user'
+        });
+      }
+    });
+
+    return merged;
+  }
+
   function setRecords(records) {
-    index = buildIndex(Array.isArray(records) ? records : []);
+    index = buildIndex(mergeCustomRecords(Array.isArray(records) ? records : []));
+    resetInjectedMarkup();
     scheduleScan();
   }
 
@@ -218,6 +358,23 @@
     activeTip = null;
   }
 
+  function resetInjectedMarkup() {
+    hideTooltip();
+    const badges = document.querySelectorAll('.' + BADGE_CLASS);
+    for (let i = 0; i < badges.length; i += 1) {
+      const badge = badges[i];
+      if (!badge || !badge.parentNode) continue;
+      badge.parentNode.removeChild(badge);
+    }
+
+    const nameSpans = document.querySelectorAll('[data-lpri-name-key]');
+    for (let i = 0; i < nameSpans.length; i += 1) {
+      const span = nameSpans[i];
+      if (!span || !span.parentNode) continue;
+      span.parentNode.replaceChild(document.createTextNode(span.textContent || ''), span);
+    }
+  }
+
   function hasBadge(el) {
     return el.nextElementSibling && el.nextElementSibling.classList && el.nextElementSibling.classList.contains(BADGE_CLASS);
   }
@@ -302,11 +459,17 @@
         const order = ['files', 'mentioned', 'collaborator', 'enemy', 'black-book'];
         for (let o = 0; o < order.length; o += 1) {
           const type = order[o];
+          if (!isBadgeTypeEnabled(type)) continue;
           if (!badgeByType.has(type)) continue;
           badges.push({ type, text: badgeByType.get(type) });
           badgeByType.delete(type);
         }
-        badgeByType.forEach((text, type) => badges.push({ type, text }));
+        badgeByType.forEach((text, type) => {
+          if (!isBadgeTypeEnabled(type)) return;
+          badges.push({ type, text });
+        });
+
+        if (badges.length === 0) continue;
 
         out.push({ candidate, key, matches: recordsForKey, start, end, badges });
         break;
@@ -351,9 +514,12 @@
       nameSpan.textContent = match.candidate;
       frag.appendChild(nameSpan);
 
-      const badges = Array.isArray(match.badges) && match.badges.length > 0
-        ? match.badges
-        : [{ type: 'files', text: 'epstein files' }];
+      const badges = Array.isArray(match.badges) ? match.badges : [];
+      if (badges.length === 0) {
+        frag.appendChild(document.createTextNode(match.candidate));
+        cursor = match.end;
+        continue;
+      }
 
       for (let b = 0; b < badges.length; b += 1) {
         const badgeInfo = badges[b];
@@ -446,8 +612,10 @@
   function start() {
     triggerDojSearchOnce();
     ensureStyles();
-    loadRecordsFromWindow();
-    scan();
+    Promise.all([loadBadgeSettings(), loadDisabledNames(), loadCustomRecords()]).then(() => {
+      loadRecordsFromWindow();
+      scan();
+    });
 
     const observer = new MutationObserver((mutations) => {
       for (const m of mutations) {
@@ -460,6 +628,46 @@
     observer.observe(document.documentElement, { childList: true, subtree: true, characterData: true });
 
     window.addEventListener('lpri-records-updated', loadRecordsFromWindow);
+    if (EXT.storage && EXT.storage.onChanged && typeof EXT.storage.onChanged.addListener === 'function') {
+      EXT.storage.onChanged.addListener((changes, areaName) => {
+        if (areaName !== 'local' || !changes) return;
+
+        if (changes[BADGE_SETTINGS_STORAGE_KEY]) {
+          badgeSettings = normalizeBadgeSettings(changes[BADGE_SETTINGS_STORAGE_KEY].newValue);
+          resetInjectedMarkup();
+          scheduleScan();
+        }
+        if (changes[DISABLED_NAMES_STORAGE_KEY]) {
+          disabledNames = normalizeDisabledNames(changes[DISABLED_NAMES_STORAGE_KEY].newValue);
+          loadRecordsFromWindow();
+        }
+        if (changes[CUSTOM_RECORDS_STORAGE_KEY]) {
+          customRecords = normalizeCustomRecords(changes[CUSTOM_RECORDS_STORAGE_KEY].newValue);
+          loadRecordsFromWindow();
+        }
+      });
+    }
+    if (EXT.runtime && EXT.runtime.onMessage && typeof EXT.runtime.onMessage.addListener === 'function') {
+      EXT.runtime.onMessage.addListener((message) => {
+        if (!message || typeof message !== 'object') return;
+        if (message.type === 'lpri-refresh-record-settings' || message.type === 'lpri-refresh-disabled-names') {
+          const hasDisabledPayload = message.disabledNames && typeof message.disabledNames === 'object';
+          const hasCustomPayload = message.customRecords && typeof message.customRecords === 'object';
+
+          if (hasDisabledPayload) disabledNames = normalizeDisabledNames(message.disabledNames);
+          if (hasCustomPayload) customRecords = normalizeCustomRecords(message.customRecords);
+
+          if (hasDisabledPayload || hasCustomPayload) {
+            loadRecordsFromWindow();
+            return;
+          }
+
+          Promise.all([loadDisabledNames(), loadCustomRecords()]).then(() => {
+            loadRecordsFromWindow();
+          });
+        }
+      });
+    }
     window.addEventListener('scroll', hideTooltip, { passive: true });
     window.addEventListener('click', hideTooltip);
   }

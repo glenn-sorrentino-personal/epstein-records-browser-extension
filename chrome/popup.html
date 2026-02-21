@@ -25,14 +25,145 @@
       code {
         font-size: 11px;
       }
+      .toggles {
+        margin-top: 10px;
+        border-top: 1px solid #e5e7eb;
+        padding-top: 10px;
+      }
+      .toggle-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin: 6px 0;
+      }
+      .toggle-row label {
+        cursor: pointer;
+        user-select: none;
+        flex: 1;
+      }
+      .show-btn {
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        background: #ffffff;
+        color: #111827;
+        font-size: 11px;
+        padding: 3px 7px;
+        cursor: pointer;
+      }
+      .show-btn:hover {
+        background: #f3f4f6;
+      }
+      .row-actions {
+        display: inline-flex;
+        gap: 6px;
+      }
+      .data-panel {
+        margin: 4px 0 8px 22px;
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        background: #ffffff;
+        padding: 6px;
+        max-height: 130px;
+        overflow: auto;
+        font: 11px/1.35 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        white-space: pre-wrap;
+      }
+      .data-meta {
+        color: #6b7280;
+        margin-bottom: 4px;
+        font: 11px/1.3 -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif;
+      }
+      .entry-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin: 2px 0;
+      }
+      .entry-row input[type="checkbox"] {
+        margin: 0;
+      }
+      .entry-name {
+        flex: 1;
+      }
+      .entry-delete {
+        border: 1px solid #fca5a5;
+        border-radius: 6px;
+        background: #fff1f2;
+        color: #991b1b;
+        font-size: 10px;
+        padding: 2px 6px;
+        cursor: pointer;
+      }
+      .entry-delete:hover {
+        background: #ffe4e6;
+      }
+      .hint {
+        color: #6b7280;
+        margin-top: 8px;
+      }
+      .footer-actions {
+        margin-top: 8px;
+      }
     </style>
   </head>
   <body>
     <h1>Public Records Indicator</h1>
     <div class="card">
-      The extension is active on webpages you visit. It adds an <strong>*</strong> for exact name matches in your local Epstein-files dataset.
+      The extension is active on webpages you visit. It adds badges for exact name matches in your local Epstein-files dataset.
       <br /><br />
-      Update dataset in <code>data/records.js</code> with official source URLs.
+      Update dataset in <code>source-data/*</code>, then run <code>scripts/sync-data.sh</code>.
+      <div class="toggles">
+        <div class="toggle-row">
+          <input id="toggle-files" type="checkbox" />
+          <label for="toggle-files">epstein files</label>
+          <span class="row-actions">
+            <button id="show-files" class="show-btn" type="button">Show data</button>
+            <button id="add-files" class="show-btn" type="button">Add record</button>
+          </span>
+        </div>
+        <div id="panel-files" class="data-panel" hidden></div>
+        <div class="toggle-row">
+          <input id="toggle-mentioned" type="checkbox" />
+          <label for="toggle-mentioned">epstein mentioned</label>
+          <span class="row-actions">
+            <button id="show-mentioned" class="show-btn" type="button">Show data</button>
+            <button id="add-mentioned" class="show-btn" type="button">Add record</button>
+          </span>
+        </div>
+        <div id="panel-mentioned" class="data-panel" hidden></div>
+        <div class="toggle-row">
+          <input id="toggle-collaborator" type="checkbox" />
+          <label for="toggle-collaborator">epstein collaborator</label>
+          <span class="row-actions">
+            <button id="show-collaborator" class="show-btn" type="button">Show data</button>
+            <button id="add-collaborator" class="show-btn" type="button">Add record</button>
+          </span>
+        </div>
+        <div id="panel-collaborator" class="data-panel" hidden></div>
+        <div class="toggle-row">
+          <input id="toggle-enemy" type="checkbox" />
+          <label for="toggle-enemy">epstein enemy</label>
+          <span class="row-actions">
+            <button id="show-enemy" class="show-btn" type="button">Show data</button>
+            <button id="add-enemy" class="show-btn" type="button">Add record</button>
+          </span>
+        </div>
+        <div id="panel-enemy" class="data-panel" hidden></div>
+        <div class="toggle-row">
+          <input id="toggle-black-book" type="checkbox" />
+          <label for="toggle-black-book">epstein black book</label>
+          <span class="row-actions">
+            <button id="show-black-book" class="show-btn" type="button">Show data</button>
+            <button id="add-black-book" class="show-btn" type="button">Add record</button>
+          </span>
+        </div>
+        <div id="panel-black-book" class="data-panel" hidden></div>
+        <div class="hint">Saved automatically and persisted across browser restarts. Uncheck any name in a data panel to disable that person.</div>
+        <div class="footer-actions">
+          <button id="restore-disabled" class="show-btn" type="button">Restore</button>
+        </div>
+      </div>
     </div>
+    <script src="data/popup-settings.js"></script>
   </body>
 </html>

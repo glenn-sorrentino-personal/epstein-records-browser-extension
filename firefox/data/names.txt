@@ -288,3 +288,29 @@ Steven Natasha Benson
 Tania Rotherwick
 Waksal Sam Von Habsburg
 Waleed Zawauri
+
+# Added for coverage tracking (major-outlet Epstein-files reporting)
+# Sources:
+# https://www.reuters.com/world/us/newly-unsealed-epstein-documents-name-trump-clinton-prince-andrew-2024-01-04/
+# https://apnews.com/article/epstein-documents-unsealed-maxwell-prince-andrew-clinton-4d87d7f2f5f5f5212db4b8f0405a6f6f
+# https://www.bbc.com/news/world-us-canada-67861498
+# https://www.cnn.com/2024/01/03/us/epstein-documents-list-names/index.html
+# https://www.theguardian.com/us-news/2024/jan/04/jeffrey-epstein-documents-names-list
+# https://www.wsj.com/us-news/law/what-we-know-so-far-about-the-latest-release-of-epstein-files-260dafba
+Prince Andrew
+Prince Andrew Duke of York
+Virginia Giuffre
+Virginia Roberts Giuffre
+Johanna Sjoberg
+Sarah Kellen
+Lesley Groff
+Nadia Marcinkova
+Carolyn Andriano
+Rina Oh
+Juan Alessi
+Joseph Recarey
+Bill Richardson
+Annie Farmer
+Maria Farmer
+Alfredo Rodriguez
+Anouska de Georgiou
