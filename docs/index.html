@@ -19,6 +19,7 @@
       --mentioned-ink: #1f2937;
       --collab: #800000;
       --enemy: #15803d;
+      --black-book: #1f3a8a;
       --accent: #39d0ff;
       --accent-2: #ffd166;
       --radius: 18px;
@@ -182,6 +183,7 @@
     .mentioned { background: var(--mentioned); color: var(--mentioned-ink); }
     .collab { background: var(--collab); }
     .enemy { background: var(--enemy); }
+    .black-book { background: var(--black-book); }
 
     .section { padding: clamp(2.5rem, 8vw, 5rem) 0 0.5rem; }
     .section h2 { margin: 0 0 0.6rem; font-size: clamp(1.55rem, 3vw, 2.5rem); letter-spacing: -0.015em; }
@@ -320,6 +322,7 @@
             <span class="chip mentioned">epstein mentioned</span>
             <span class="chip collab">epstein collaborator</span>
             <span class="chip enemy">epstein enemy</span>
+            <span class="chip black-book">epstein black book</span>
           </div>
           <p style="margin-top:1rem;font-size:0.92rem;color:#9eb0ca;">Matching runs locally in the browser. No dataset upload required.</p>
         </article>
@@ -334,7 +337,7 @@
       </p>
       <div class="cards">
         <article class="card"><h3>1. Detect</h3><p>Unicode-aware exact name matching across regular webpages.</p></article>
-        <article class="card"><h3>2. Label</h3><p>Color-coded badges for files, mentioned, collaborator, and enemy.</p></article>
+        <article class="card"><h3>2. Label</h3><p>Color-coded badges for files, mentioned, collaborator, enemy, and black book.</p></article>
         <article class="card"><h3>3. Verify</h3><p>One-click jump to DOJ search context for additional review.</p></article>
       </div>
     </section>
