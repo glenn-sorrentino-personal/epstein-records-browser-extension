@@ -72,15 +72,26 @@
       background: var(--card);
       border-radius: 16px;
       padding: 16px;
-      display: grid;
-      grid-template-rows: auto auto 1fr;
-      gap: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       min-height: 0;
+    }
+    .center-section {
+      width: 100%;
+      max-width: 860px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 36px;
+      text-align: center;
     }
     .logos {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 10px;
+      width: 100%;
     }
     .logo-link {
       border: 1px solid var(--line);
@@ -111,12 +122,21 @@
       line-height: 1.5;
       max-width: 70ch;
     }
+    .shot {
+      width: 100%;
+      max-width: 720px;
+      max-height: 260px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      display: block;
+    }
     .badges {
       display: flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
       flex-wrap: wrap;
-      align-self: end;
     }
     .badges img {
       height: 22px;
@@ -155,33 +175,31 @@
     </header>
 
     <main class="main">
-      <div class="logos">
-        <a class="logo-link" href="https://github.com/glenn-sorrentino-personal/epstein-records-browser-extension/blob/main/README.md#chrome" target="_blank" rel="noreferrer noopener">
-          <img src="./assets/logos/chrome.png" alt="Chrome" />
-          <span>Chrome Setup</span>
-        </a>
-        <a class="logo-link" href="https://github.com/glenn-sorrentino-personal/epstein-records-browser-extension/blob/main/README.md#firefox" target="_blank" rel="noreferrer noopener">
-          <img src="./assets/logos/firefox.png" alt="Firefox" />
-          <span>Firefox Setup</span>
-        </a>
-        <a class="logo-link" href="https://github.com/glenn-sorrentino-personal/epstein-records-browser-extension/blob/main/README.md#safari" target="_blank" rel="noreferrer noopener">
-          <img src="./assets/logos/safari.png" alt="Safari" />
-          <span>Safari Setup</span>
-        </a>
-      </div>
-
-      <section>
-        <h1>Local-only name indicators for public records.</h1>
-        <p>
-          Matching runs in your browser, not on a server. The project is open source and the data workflow is transparent.
-          Click a browser logo above for install instructions in the README.
-        </p>
-      </section>
-
+      <section class="center-section">
       <div class="badges" aria-label="Project badges">
         <img alt="Unqiue Records" src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/glenn-sorrentino-personal/epstein-records-browser-extension/main/badges/source-data-unique.json&cacheSeconds=60" />
         <img alt="Data Sync" src="https://github.com/glenn-sorrentino-personal/epstein-records-browser-extension/actions/workflows/data-sync.yml/badge.svg" />
       </div>
+        <h1>Identify names from the Epstein Files as you browse.</h1>
+        <p>
+          The Epstein Records Indicator browser extension adds badges next to exact name matches on any webpage that appear in the Epstein Files. Processing is local, works on any website, and badges link to search results for that name.
+        </p>
+        <div class="logos">
+          <a class="logo-link" href="https://github.com/glenn-sorrentino-personal/epstein-records-browser-extension/blob/main/README.md#chrome" target="_blank" rel="noreferrer noopener">
+            <img src="./assets/logos/chrome.png" alt="Chrome" />
+            <span>Chrome Setup</span>
+          </a>
+          <a class="logo-link" href="https://github.com/glenn-sorrentino-personal/epstein-records-browser-extension/blob/main/README.md#firefox" target="_blank" rel="noreferrer noopener">
+            <img src="./assets/logos/firefox.png" alt="Firefox" />
+            <span>Firefox Setup</span>
+          </a>
+          <a class="logo-link" href="https://github.com/glenn-sorrentino-personal/epstein-records-browser-extension/blob/main/README.md#safari" target="_blank" rel="noreferrer noopener">
+            <img src="./assets/logos/safari.png" alt="Safari" />
+            <span>Safari Setup</span>
+          </a>
+      </div>
+      <img class="shot" src="./assets/screenshot.png" alt="Epstein Records Indicator screenshot" />
+      </section>
     </main>
 
     <footer class="footer">
