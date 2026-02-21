@@ -119,6 +119,19 @@
       background: rgba(255, 209, 102, 0.08);
     }
 
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin: 0.15rem 0 1rem;
+    }
+
+    .hero-badges img {
+      height: 22px;
+      width: auto;
+      border-radius: 6px;
+    }
+
     h1 {
       margin: 0;
       max-width: 15ch;
@@ -283,6 +296,10 @@
   <main class="wrap">
     <section class="hero fade">
       <span class="eyebrow">Public Records Overlay</span>
+      <div class="hero-badges" aria-label="Repository badges">
+        <img alt="Unqiue Records" src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/glenn-sorrentino-personal/epstein-records-browser-extension/main/badges/source-data-unique.json&cacheSeconds=60" />
+        <img alt="Data Sync" src="https://github.com/glenn-sorrentino-personal/epstein-records-browser-extension/actions/workflows/data-sync.yml/badge.svg" />
+      </div>
       <h1>See relevant names as you browse, instantly.</h1>
       <p class="lead">
         Epstein Records Indicator adds neutral, local-only badges next to exact name matches on any webpage.
@@ -362,7 +379,8 @@
 source-data/names.txt
 source-data/mentions.txt
 source-data/collaborator.txt
-source-data/enemy.txt</div></div>
+source-data/enemy.txt
+source-data/black-book.txt</div></div>
         <div class="card"><h3>Sync + verify</h3><div class="code">bash scripts/sync-data.sh
 bash scripts/sync-data.sh --check</div></div>
       </div>
