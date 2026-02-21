@@ -19,6 +19,7 @@ DATA_FILES=(
   "collaborator.txt"
   "enemy.txt"
   "black-book.txt"
+  "references.txt"
 )
 
 usage() {

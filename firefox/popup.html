@@ -103,6 +103,16 @@
       }
       .footer-actions {
         margin-top: 8px;
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .ref-link {
+        color: #0369a1;
+        text-decoration: underline;
+        display: block;
+        margin: 2px 0;
+        word-break: break-all;
       }
     </style>
   </head>
@@ -160,8 +170,10 @@
         <div id="panel-black-book" class="data-panel" hidden></div>
         <div class="hint">Saved automatically and persisted across browser restarts. Uncheck any name in a data panel to disable that person.</div>
         <div class="footer-actions">
+          <button id="show-references" class="show-btn" type="button">References</button>
           <button id="restore-disabled" class="show-btn" type="button">Restore</button>
         </div>
+        <div id="panel-references" class="data-panel" hidden></div>
       </div>
     </div>
     <script src="data/popup-settings.js"></script>

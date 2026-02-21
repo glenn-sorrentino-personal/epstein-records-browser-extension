@@ -12,3 +12,14 @@ JPMorgan Chase
 Lesley Groff
 Nadia Marcinkova
 Sarah Kellen
+
+# Added for coverage from public reporting and case records
+Jean-Luc Brunel
+Jean Luc Brunel
+Nadia Marcinkova
+Lesley Groff
+Sarah Kellen
+Adriana Ross
+Adriana Ross-Leiter
+Jojo Johansson
+Karyna Shuliak

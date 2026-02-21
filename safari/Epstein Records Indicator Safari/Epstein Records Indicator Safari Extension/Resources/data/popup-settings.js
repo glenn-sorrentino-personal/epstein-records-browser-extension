@@ -17,6 +17,7 @@
     enemy: 'data/enemy.txt',
     'black-book': 'data/black-book.txt'
   };
+  const REFERENCES_FILE = 'data/references.txt';
   const CATEGORY_LABEL_BY_TYPE = {
     files: 'epstein files',
     mentioned: 'epstein mentioned',
@@ -64,6 +65,8 @@
     'black-book': document.getElementById('panel-black-book')
   };
   const RESTORE_BUTTON = document.getElementById('restore-disabled');
+  const REFERENCES_BUTTON = document.getElementById('show-references');
+  const REFERENCES_PANEL = document.getElementById('panel-references');
 
   function normalizeBadgeSettings(input) {
     const next = Object.assign({}, DEFAULT_BADGE_SETTINGS);
@@ -174,6 +177,13 @@
   }
 
   function parseCategoryText(rawText) {
+    return String(rawText || '')
+      .split(/\r?\n/g)
+      .map((line) => line.trim())
+      .filter((line) => line && !line.startsWith('#'));
+  }
+
+  function parseReferencesText(rawText) {
     return String(rawText || '')
       .split(/\r?\n/g)
       .map((line) => line.trim())
@@ -350,6 +360,47 @@
     }
   }
 
+  async function toggleReferencesPanel() {
+    if (!REFERENCES_PANEL || !REFERENCES_BUTTON) return;
+    if (!REFERENCES_PANEL.hidden) {
+      REFERENCES_PANEL.hidden = true;
+      REFERENCES_BUTTON.textContent = 'References';
+      return;
+    }
+
+    REFERENCES_PANEL.hidden = false;
+    REFERENCES_BUTTON.textContent = 'Hide references';
+    REFERENCES_PANEL.innerHTML = '<div class="data-meta">Loading...</div>';
+    try {
+      const url = EXT.runtime.getURL(REFERENCES_FILE);
+      const response = await fetch(url);
+      if (!response.ok) throw new Error('Failed to load references');
+      const refs = parseReferencesText(await response.text());
+
+      const meta = document.createElement('div');
+      meta.className = 'data-meta';
+      meta.textContent = refs.length + ' references';
+
+      const body = document.createElement('div');
+      for (let i = 0; i < refs.length; i += 1) {
+        const href = refs[i];
+        const a = document.createElement('a');
+        a.className = 'ref-link';
+        a.href = href;
+        a.target = '_blank';
+        a.rel = 'noreferrer noopener';
+        a.textContent = href;
+        body.appendChild(a);
+      }
+
+      REFERENCES_PANEL.innerHTML = '';
+      REFERENCES_PANEL.appendChild(meta);
+      REFERENCES_PANEL.appendChild(body);
+    } catch (err) {
+      REFERENCES_PANEL.innerHTML = '<div class="data-meta">Failed to load references.</div>';
+    }
+  }
+
   async function init() {
     const [rawSettings, rawDisabled] = await Promise.all([
       getStorageValue(BADGE_SETTINGS_STORAGE_KEY),
@@ -394,6 +445,12 @@
         for (let i = 0; i < allEntryCheckboxes.length; i += 1) {
           allEntryCheckboxes[i].checked = true;
         }
+      });
+    }
+
+    if (REFERENCES_BUTTON) {
+      REFERENCES_BUTTON.addEventListener('click', () => {
+        toggleReferencesPanel();
       });
     }
   }
