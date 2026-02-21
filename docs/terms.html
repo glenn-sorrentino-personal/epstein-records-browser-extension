@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Terms of Service • Epstein Records Indicator</title>
+  <meta name="description" content="Canonical Terms of Service location for the Epstein Records Indicator website and extension." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Atkinson+Hyperlegible+Mono:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0a0c10;
+      --ink: #f8fafc;
+      --muted: #b7c0cf;
+      --line: #2a3040;
+      --accent: #39d0ff;
+      --panel: rgba(255, 255, 255, 0.03);
+      --max: 900px;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Atkinson Hyperlegible", system-ui, sans-serif;
+      line-height: 1.65;
+    }
+    .wrap {
+      width: min(100% - 2rem, var(--max));
+      margin-inline: auto;
+      padding: 2rem 0 3rem;
+    }
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+    .brand {
+      font: 700 0.9rem/1 "Atkinson Hyperlegible Mono", monospace;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    a { color: var(--accent); }
+    .panel {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 14px;
+      padding: 1.2rem;
+    }
+    h1 { margin: 0.3rem 0 0.5rem; font-size: clamp(1.9rem, 5vw, 2.8rem); }
+    p { color: var(--muted); }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="top">
+      <div class="brand">Epstein Records Indicator</div>
+      <a href="./index.html">Back to Site</a>
+    </div>
+    <section class="panel">
+      <h1>Terms of Service</h1>
+      <p>The canonical Terms of Service source of truth is maintained at:</p>
+      <p><a href="https://github.com/glenn-sorrentino-personal/epstein-records-browser-extension/blob/main/TERMS.md" target="_blank" rel="noreferrer noopener">`TERMS.md` in the repository root</a></p>
+    </section>
+  </main>
+</body>
+</html>
